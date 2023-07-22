@@ -1,0 +1,63 @@
+$themes: (
+  "light": (
+    "sidebar-background": #3F0E40,
+    "sidebar-background-hover": #4D2A51,
+    "sidebar-workspace": #FFFFFF,
+    "sidebar-workspace-active": rgba(255, 255, 255, 0.88),
+    "sidebar-border": #522653,
+    "sidebar-text": rgba(255, 255, 255, 0.7),
+    "sidebar-muted-text": rgba(255, 255, 255, 0.5),
+    "sidebar-active-channel": #1164A3,
+    "sidebar-scrollbar": rgba(255, 255, 255, 0.45),
+    "register-text": #454245,
+    "register-alert": #E01E5A,
+    "register-focus-border": #1264A3,
+    "register-focus-ring": #BBE1F1,
+    "register-deactivated": #DDDDDD,
+    "register-activated": #4A154B,
+    "navigation-background": #350D36,
+    "search-background": #5D3D5E,
+    "search-background-hover": #644565,
+    "search-text": #FFFFFF,
+    "background": #FFFFFF,
+    "background-hover": #F8F8F8,
+    "border": #E2E2E2,
+    "scrollbar": rgba(29, 28, 29, 0.52),
+    "text": #1D1C1D,
+    "subtext": rgba(29, 28, 29, 0.7),
+    "timestamp": #616061,
+    "hyperlink": #1264A3,
+    "reply-text": #1264A3,
+    "reply-background": rgba(29, 155, 209, 0.1),
+    "reply-background-hover": #FFFFFF,
+    "mentioned-background": rgba(254, 199, 68, 0.4),
+    "information-background": #000000,
+    "information-text": #FFFFFF,
+    "information-subtext": #AAAAAA,
+    "modal-background": #F8F8F8,
+    "modal-active-background": #1264A3,
+    "modal-active-text": #F8F8F8,
+    "user-status-active": #2BAC76,
+    "user-status-deactive": rgba(43, 172, 118, 0),  /* transparent */
+  )
+);
+
+@each $theme-name, $properties in $themes {
+  .app[data-theme="#{$theme-name}"] {
+    // define a css variable for each property
+    @each $name, $property in $properties {
+      --#{$name}: #{$property};
+
+      @if ($name == "primary") {
+        --#{$name}-dark: #{darken($property, 10%)};
+        --#{$name}-darker: #{darken($property, 20%)};
+        --#{$name}-light: #{lighten($property, 10%)};
+        --#{$name}-lighter: #{lighten($property, 20%)};
+      }
+    }
+  }
+}
+
+html, body {
+  height: 100%;
+}
