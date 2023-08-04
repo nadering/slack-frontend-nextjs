@@ -38,6 +38,14 @@ export default function RootLayout({
       <QueryClientProvider client={queryClient}>
         <Authenticator.Provider>
           <html lang="ko">
+            <head>
+              <title>Slack Clone-Coding</title>
+              <meta
+                name="description"
+                content="Slack Clone-Coding with React / Spring"
+              />
+              <link rel="icon" href="/images/slack_icon.svg" />
+            </head>
             <body className={inter.className}>
               <div className="app" data-theme="light">
                 <Authenticator

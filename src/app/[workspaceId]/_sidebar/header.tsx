@@ -8,7 +8,7 @@ const Header = React.memo(() => {
         <button className="hbox relative w(~100%-46px) r(8) p(4/4/4/8) gap(4) hover:bg(--sidebar-background-hover)">
           <span className="w(~90%) c(--sidebar-workspace) font-family(Larsseit) font(18) 900 translateY(1px) nowrap...">
             {/* Workspace name */}
-            {"테스트 워크스페이스"}
+            {"테스트"}
           </span>
           <span className="filter-white">
             <Image

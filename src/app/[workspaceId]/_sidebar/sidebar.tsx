@@ -3,6 +3,7 @@
 import Header from "./header";
 import Toolbox from "./toolbox";
 import ChannelList from "./channel";
+import DirectMessage from "./direct-message";
 import Divider from "./divider";
 
 export default function Sidebar() {
@@ -16,6 +17,7 @@ export default function Sidebar() {
       <Toolbox />
       <Divider />
       <ChannelList />
+      <DirectMessage />
     </div>
   );
 }
