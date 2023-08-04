@@ -18,7 +18,7 @@ const Tool = React.memo(({ src, text }: ToolProps) => {
           height={18}
         />
       </div>
-      <span className="c(--sidebar-text) font(15) font-family(Sailec) semibold letter-spacing(-0.3px)">
+      <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
         {text}
       </span>
     </button>

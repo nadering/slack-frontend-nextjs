@@ -22,7 +22,7 @@ const DirectMessage = React.memo(() => {
           </div>
         </button>
         <button className="hbox gap(4) r(8) p(4) hover:bg(--sidebar-background-hover)">
-          <span className="c(--sidebar-text) font(15) font-family(Sailec) semibold letter-spacing(-0.3px)">
+          <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
             다이렉트 메시지
           </span>
           {hovered ? (

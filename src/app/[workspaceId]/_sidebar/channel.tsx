@@ -27,7 +27,7 @@ const Channel = React.memo(() => {
           </div>
         </button>
         <button className="hbox gap(4) r(8) p(4) hover:bg(--sidebar-background-hover)">
-          <span className="c(--sidebar-text) font(15) font-family(Sailec) semibold letter-spacing(-0.3px)">
+          <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
             채널
           </span>
           {hovered ? (
@@ -64,7 +64,7 @@ const Channel = React.memo(() => {
             height={16}
           />
         </div>
-        <span className="c(--sidebar-text) font(15) font-family(Sailec) semibold letter-spacing(-0.3px)">
+        <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
           {name}
         </span>
       </button>
@@ -84,11 +84,11 @@ const Channel = React.memo(() => {
     return (
       <button className="hbox h(28) r(8) p(0/4/0/10) gap(8)">
         <div className="fill w(20) h(20) r(4) bg(--sidebar-add-channel-background)">
-          <div className="c(--sidebar-text) font(15) font-family(Sailec)">
+          <div className="c(--sidebar-text) font(15) font-family(Larsseit)">
             +
           </div>
         </div>
-        <span className="c(--sidebar-text) font(15) font-family(Sailec) semibold letter-spacing(-0.3px)">
+        <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
           채널 추가
         </span>
       </button>
