@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 interface SidebarChannelProps {
@@ -7,6 +7,22 @@ interface SidebarChannelProps {
 }
 
 const Channel = React.memo(() => {
+  // temporary state and hooks
+  const [activeChannelID, setActiveChannelID] = useState<string>("");
+  const [channelList, setChannelList] = useState<SidebarChannelProps[]>([
+    // temporary array
+    // ToDo: get channel list with useEffect or React-Query
+    {
+      name: "회의",
+      id: "conversation",
+    },
+    {
+      name: "테스트",
+      id: "test",
+    },
+  ]);
+  const [hideChannels, setHideChannels] = useState<boolean>(false);
+
   const ChannelManager = React.memo(() => {
     const [hovered, setHovered] = useState<boolean>(false);
 
@@ -16,7 +32,15 @@ const Channel = React.memo(() => {
         onMouseOver={() => setHovered(true)}
         onMouseOut={() => setHovered(false)}
       >
-        <button className="w(26) h(28) r(8) p(4) hover:bg(--sidebar-background-hover)">
+        <button
+          className={`w(26) h(28) r(8) p(4) transition(transform=.25s) .hide-channels:rotateZ(-90deg)
+          hover:bg(--sidebar-background-hover) ${
+            hideChannels ? "hide-channels" : ""
+          }`}
+          onClick={() => {
+            setHideChannels((prev) => !prev);
+          }}
+        >
           <div className="filter-sidebar-text translateX(3px)">
             <Image
               src={"/images/channel-hide.svg"}
@@ -74,8 +98,14 @@ const Channel = React.memo(() => {
   const ChannelList = React.memo(() => {
     return (
       <>
-        <SidebarChannel name="회의" id="convensation" />
-        <SidebarChannel name="테스트" id="test" />
+        {channelList.map((channel) => {
+          if (
+            !hideChannels ||
+            (hideChannels && channel.id === activeChannelID)
+          ) {
+            return <SidebarChannel key={channel.id} name={channel.name} id={channel.id} />;
+          }
+        })}
       </>
     );
   });
@@ -83,8 +113,8 @@ const Channel = React.memo(() => {
   const AddChannel = React.memo(() => {
     return (
       <button className="hbox h(28) r(8) p(0/4/0/10) gap(8)">
-        <div className="fill w(20) h(20) r(4) bg(--sidebar-add-channel-background)">
-          <div className="c(--sidebar-text) font(15) font-family(Larsseit)">
+        <div className="w(20) h(20) r(4) bg(--sidebar-add-channel-background)">
+          <div className="text(pack) c(--sidebar-text) font(15) font-family(Larsseit)">
             +
           </div>
         </div>
@@ -94,9 +124,6 @@ const Channel = React.memo(() => {
       </button>
     );
   });
-
-  // temporary state
-  const [activeChannelID, setActiveChannelID] = useState<string>("");
 
   return (
     <div className="vbox p(4/8)">

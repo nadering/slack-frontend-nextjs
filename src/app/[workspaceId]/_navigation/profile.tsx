@@ -16,7 +16,7 @@ export default function Profile() {
         className="w(26) h(26) r(4) clip"
         onClick={() => Auth.signOut()}
       >
-        <Image src="/images/temporary-profile.png" alt="profile" width={26} height={26} />
+        <Image src="/images/temporary-profile.png" alt="profile" width={26} height={26} priority />
       </button>
     </div>
   );
