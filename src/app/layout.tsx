@@ -44,7 +44,7 @@ export default function RootLayout({
                 name="description"
                 content="Slack Clone-Coding with React / Spring"
               />
-              <link rel="icon" href="/images/slack_icon.svg" />
+              <link rel="icon" href="/images/slack-icon.svg" />
             </head>
             <body className={inter.className}>
               <div className="app" data-theme="light">

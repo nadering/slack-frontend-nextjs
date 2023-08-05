@@ -16,12 +16,12 @@ export default function Search() {
           {/* Workspace name */}
           {"테스트 워크스페이스 검색"}
         </span>
-        <div className="fill filter-white">
+        <div className="pack filter-white">
           <Image src="/images/search.svg" alt="search" width={15} height={15} />
         </div>
       </button>
       <button className="absolute right(32)">
-        <div className="fill filter-white">
+        <div className="pack filter-white">
           <Image
             src="/images/search-filter.svg"
             alt="search-filter"

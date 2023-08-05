@@ -8,7 +8,7 @@ const History = React.memo(() => {
     @w(~859):w(auto~) @w(860~):w(220~) @w(1080~):w(260~) @w(~1440):flex-grow(0)"
     >
       <button className="w(26) h(26) r(4) px(3) clip hover:bg(--search-background-hover)">
-        <div className="fill filter-white">
+        <div className="pack filter-white">
           <Image
             src="/images/history.svg"
             alt="history"

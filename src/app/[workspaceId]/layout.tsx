@@ -9,7 +9,7 @@ export default function Layout({
   return (
     <>
       <Navigation />
-      <div className="hbox(stretch) h(calc(100vh-44px))">
+      <div className="hbox(stretch) h(100vh-44px)">
         <Sidebar />
         {children}
       </div>
