@@ -1,4 +1,4 @@
-import Sidebar from "./sidebar";
+import Sidebar from "./_sidebar";
 import Header from "./header";
 import Toolbox from "./toolbox";
 import Channel from "./channel";

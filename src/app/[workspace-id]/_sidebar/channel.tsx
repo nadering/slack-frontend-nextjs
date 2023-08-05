@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRecoilState } from "recoil";
 import Image from "next/image";
+import { redirect } from "next/navigation";
+import { currentState } from "@/store";
 
 interface SidebarChannelProps {
   name: string;
@@ -10,7 +13,7 @@ interface SidebarChannelProps {
 
 const Channel = React.memo(() => {
   // temporary state and hooks
-  const [activeChannelID, setActiveChannelID] = useState<string>("");
+  const [current, setCurrent] = useRecoilState(currentState);
   const [channelList, setChannelList] = useState<SidebarChannelProps[]>([
     // temporary array
     // ToDo: get channel list with useEffect or React-Query
@@ -76,13 +79,16 @@ const Channel = React.memo(() => {
   const SidebarChannel = React.memo(({ name, id }: SidebarChannelProps) => {
     return (
       <button
-        className={`hbox h(28) r(8) p(0/4/0/12) gap(8)
-        ${id === activeChannelID ? "active" : ""}
+        className={`hbox items-center h(28) r(8) p(0/4/0/12) gap(8)
+        ${id === current ? "active" : ""}
         .active:bg(--sidebar-active-background)+c(--sidebar-active-text)!
         hover:bg(--sidebar-background-hover)`}
-        onClick={() => setActiveChannelID(id)}
+        onClick={() => {
+          setCurrent(id);
+          redirect("/" + id);
+        }}
       >
-        <div className="fill filter-sidebar-text w(18) h(18)">
+        <div className="filter-sidebar-text w(18) h(18)">
           <Image
             src={"/images/channel-tag.svg"}
             alt="channel-tag"
@@ -90,7 +96,7 @@ const Channel = React.memo(() => {
             height={16}
           />
         </div>
-        <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
+        <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px) translateY(1.4px)">
           {name}
         </span>
       </button>
@@ -103,7 +109,7 @@ const Channel = React.memo(() => {
         {channelList.map((channel) => {
           if (
             !hideChannels ||
-            (hideChannels && channel.id === activeChannelID)
+            (hideChannels && channel.id === current)
           ) {
             return <SidebarChannel key={channel.id} name={channel.name} id={channel.id} />;
           }

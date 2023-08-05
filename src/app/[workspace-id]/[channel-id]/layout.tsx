@@ -1,5 +1,5 @@
-import { Sidebar } from "./_sidebar";
-import { Navigation } from "./_navigation";
+import { Sidebar } from "../_sidebar";
+import { Navigation } from "../_navigation";
 
 export default function Layout({
   children,

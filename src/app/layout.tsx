@@ -39,7 +39,7 @@ export default function RootLayout({
         <Authenticator.Provider>
           <html lang="ko">
             <head>
-              <title>Slack Clone-Coding</title>
+              <title>클론 코딩 | Slack</title>
               <meta
                 name="description"
                 content="Slack Clone-Coding with React / Spring"
