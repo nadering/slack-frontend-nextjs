@@ -4,16 +4,26 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 const DirectMessage = React.memo(() => {
-  const DirectMessageManager = React.memo(() => {
-    const [hovered, setHovered] = useState<boolean>(false);
+  const [directMessageManagerHovered, setDirectMessageManagerHovered] =
+    useState<boolean>(false);
+  const [hideDirectMessages, setHideDirectMessages] = useState<boolean>(false);
 
+  const DirectMessageManager = React.memo(() => {
     return (
       <div
         className="hbox h(28) r(8) p(0/4/0/8)"
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
+        onMouseOver={() => setDirectMessageManagerHovered(true)}
+        onMouseOut={() => setDirectMessageManagerHovered(false)}
       >
-        <button className="w(26) h(28) r(8) p(4) hover:bg(--sidebar-background-hover)">
+        <button
+          className={`w(26) h(28) r(8) p(4) transition(transform=.25s) .hide-channels:rotateZ(-90deg)
+          hover:bg(--sidebar-background-hover) ${
+            hideDirectMessages ? "hide-channels" : ""
+          }`}
+          onClick={() => {
+            setHideDirectMessages((prev) => !prev);
+          }}
+        >
           <div className="filter-sidebar-text translateX(3px)">
             <Image
               src={"/images/channel-hide.svg"}
@@ -27,7 +37,7 @@ const DirectMessage = React.memo(() => {
           <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
             다이렉트 메시지
           </span>
-          {hovered ? (
+          {directMessageManagerHovered ? (
             <span className="filter-white">
               <Image
                 src="/images/workspace-detail.svg"

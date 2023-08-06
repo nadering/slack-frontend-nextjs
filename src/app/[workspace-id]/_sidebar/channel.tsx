@@ -29,17 +29,16 @@ const Channel = React.memo(() => {
   const path = usePathname();
   const [_, currentWorkspaceId, currentChannelId] = path.split("/");
 
+  const [channelManagerHovered, setChannelManagerHovered] = useState<boolean>(false);
   const [hideChannels, setHideChannels] = useState<boolean>(false);
 
   // Manages visibility of unactive channels
   const ChannelManager = React.memo(() => {
-    const [hovered, setHovered] = useState<boolean>(false);
-
     return (
       <div
         className="hbox h(28) r(8) p(0/4/0/8)"
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
+        onMouseOver={() => setChannelManagerHovered(true)}
+        onMouseOut={() => setChannelManagerHovered(false)}
       >
         <button
           className={`w(26) h(28) r(8) p(4) transition(transform=.25s) .hide-channels:rotateZ(-90deg)
@@ -63,7 +62,7 @@ const Channel = React.memo(() => {
           <span className="c(--sidebar-text) font(15) font-family(Larsseit) semibold letter-spacing(-0.3px)">
             채널
           </span>
-          {hovered ? (
+          {channelManagerHovered ? (
             <span className="filter-white">
               <Image
                 src="/images/workspace-detail.svg"
