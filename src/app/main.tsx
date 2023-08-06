@@ -1,5 +1,4 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuthenticator } from "@aws-amplify/ui-react";
@@ -33,7 +32,6 @@ const WorkspaceInformation = React.memo(
         </div>
         <Link
           href={`/${id}`}
-          as={"image"}
           className="absolute right(16) r(4) p(16) bg(--main-workspace-button-background) transition(background=.35s) hover:bg(--main-workspace-button-background-hover)"
         >
           <span className="c(--main-text) text(pack) font(14) font-family(Larsseit) heavy">
