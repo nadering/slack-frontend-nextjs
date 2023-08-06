@@ -15,6 +15,7 @@ interface LinkToolProps {
 interface ToolProps {
   src: string;
   text: string;
+  // onclick: function;
 }
 
 const LinkTool = React.memo(

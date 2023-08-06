@@ -11,12 +11,12 @@ const DirectMessage = React.memo(() => {
   const DirectMessageManager = React.memo(() => {
     return (
       <div
-        className="hbox h(28) r(8) p(0/4/0/8)"
+        className="hbox items-center h(28) r(8) p(0/4/0/8)"
         onMouseOver={() => setDirectMessageManagerHovered(true)}
         onMouseOut={() => setDirectMessageManagerHovered(false)}
       >
         <button
-          className={`w(26) h(28) r(8) p(4) transition(transform=.25s) .hide-channels:rotateZ(-90deg)
+          className={`w(26) h(26) r(8) p(4) transition(transform=.25s) .hide-channels:rotateZ(-90deg)
           hover:bg(--sidebar-background-hover) ${
             hideDirectMessages ? "hide-channels" : ""
           }`}
