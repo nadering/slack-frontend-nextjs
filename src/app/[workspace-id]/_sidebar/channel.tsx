@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRecoilState } from "recoil";
 import Image from "next/image";
-import { redirect } from "next/navigation";
-import { currentState } from "@/store";
+import { useRouter, usePathname } from "next/navigation";
 
 interface SidebarChannelProps {
   name: string;
@@ -13,7 +11,6 @@ interface SidebarChannelProps {
 
 const Channel = React.memo(() => {
   // temporary state and hooks
-  const [current, setCurrent] = useRecoilState(currentState);
   const [channelList, setChannelList] = useState<SidebarChannelProps[]>([
     // temporary array
     // ToDo: get channel list with useEffect or React-Query
@@ -26,8 +23,15 @@ const Channel = React.memo(() => {
       id: "test",
     },
   ]);
+  
+  // Next.js 13+ routing
+  const router = useRouter();
+  const path = usePathname();
+  const [_, currentWorkspaceId, currentChannelId] = path.split("/");
+
   const [hideChannels, setHideChannels] = useState<boolean>(false);
 
+  // Manages visibility of unactive channels
   const ChannelManager = React.memo(() => {
     const [hovered, setHovered] = useState<boolean>(false);
 
@@ -76,16 +80,16 @@ const Channel = React.memo(() => {
     );
   });
 
+  // Displays a channel at sidebar
   const SidebarChannel = React.memo(({ name, id }: SidebarChannelProps) => {
     return (
       <button
         className={`hbox items-center h(28) r(8) p(0/4/0/12) gap(8)
-        ${id === current ? "active" : ""}
+        ${id === currentChannelId ? "active" : ""}
         .active:bg(--sidebar-active-background)+c(--sidebar-active-text)!
         hover:bg(--sidebar-background-hover)`}
         onClick={() => {
-          setCurrent(id);
-          redirect("/" + id);
+          router.push(`/${currentWorkspaceId}/${id}`);
         }}
       >
         <div className="filter-sidebar-text w(18) h(18)">
@@ -103,13 +107,14 @@ const Channel = React.memo(() => {
     );
   });
 
+  // Displays channels at sidebar
   const ChannelList = React.memo(() => {
     return (
       <>
         {channelList.map((channel) => {
           if (
             !hideChannels ||
-            (hideChannels && channel.id === current)
+            (hideChannels && channel.id === currentChannelId)
           ) {
             return <SidebarChannel key={channel.id} name={channel.name} id={channel.id} />;
           }
@@ -118,6 +123,7 @@ const Channel = React.memo(() => {
     );
   });
 
+  // Add channel button (under the channels)
   const AddChannel = React.memo(() => {
     return (
       <button className="hbox h(28) r(8) p(0/4/0/10) gap(8)">

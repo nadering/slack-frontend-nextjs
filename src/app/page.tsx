@@ -1,7 +1,7 @@
 "use client";
 
-import Main from "./_main";
-import Header from "./_header";
+import Main from "./main";
+import Header from "./header";
 
 export default function Home() {
   return (

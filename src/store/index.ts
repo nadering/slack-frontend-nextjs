@@ -1,3 +1,3 @@
-import { currentState, currentWorkspaceState } from "./store";
+// import { currentChannelNameState, currentWorkspaceNameState } from "./store";
 
-export { currentState, currentWorkspaceState };
+// export { currentChannelNameState, currentWorkspaceNameState };

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSetRecoilState } from "recoil";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuthenticator } from "@aws-amplify/ui-react";
@@ -23,7 +24,7 @@ const WorkspaceInformation = React.memo(
           />
         </div>
         <div className="vbox gap(4)">
-          <p className="c(--main-workspace-text) font(18) font-family(Larsseit) heavy">
+          <p className="c(--main-workspace-text) font(18) font-family(Larsseit) heavy break-word">
             {name}
           </p>
           <p className="c(--main-workspace-detail-text) font(14) font-family(Larsseit)">
@@ -110,7 +111,7 @@ const Main = () => {
       <section className="vbox gap(20)">
         <div className="hbox">
           {/* Image */}
-          <span className="c(--main-text) font(44) font-family(Larsseit) heavy letter-spacing(-1px) word-spacing(10px)">
+          <span className="c(--main-text) font(44) font-family(Larsseit) heavy letter-spacing(-1px) word-spacing(10px) break-word">
             또 만나게 되어 반가워요
           </span>
         </div>

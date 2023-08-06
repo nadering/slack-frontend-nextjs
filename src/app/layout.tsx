@@ -7,10 +7,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Amplify, I18n } from "aws-amplify";
 import { Authenticator, translations } from "@aws-amplify/ui-react";
 import { AwsConfig, AwsKoVocabularies } from "./_auth";
-import "./globals.scss";
-import "./fonts.scss";
 import "adorable-css";
 import "@aws-amplify/ui-react/styles.css";
+import "./globals.scss";
+import "./fonts.scss";
 
 Amplify.configure({ ...AwsConfig, ssr: true });
 I18n.putVocabularies(translations);

@@ -1,11 +1,11 @@
-import { atom } from "recoil";
+// import { atom } from "recoil";
 
-export const currentState = atom<string>({
-  key: "currentState",
-  default: ""
-});
+// export const currentChannelNameState = atom<string>({
+//   key: "currentChannelNameState",
+//   default: ""
+// });
 
-export const currentWorkspaceState = atom<string>({
-  key: "currentWorkspaceState",
-  default: ""
-});
+// export const currentWorkspaceNameState = atom<string>({
+//   key: "currentWorkspaceNameState",
+//   default: ""
+// });
