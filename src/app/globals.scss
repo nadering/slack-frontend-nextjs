@@ -50,10 +50,12 @@ $themes: (
     "information-text": #FFFFFF,
     "information-subtext": #AAAAAA,
     "modal-background": #F8F8F8,
-    "modal-active-background": #1264A3,
-    "modal-active-text": #F8F8F8,
+    "modal-hover-background": #1264A3,
+    "modal-hover-text": #F8F8F8,
+    "modal-shadow": #696969,
     "user-status-active": #2BAC76,
     "user-status-deactive": rgba(43, 172, 118, 0),  /* transparent */
+    "user-status-text": rgba(29, 28, 29, 0.7),
   )
 );
 
