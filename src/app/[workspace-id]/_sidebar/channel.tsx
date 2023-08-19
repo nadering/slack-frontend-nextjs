@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
+import { showAddChannelFullscreenModalState } from "@/store";
 
 interface SidebarChannelProps {
   name: string;
@@ -23,14 +25,15 @@ const Channel = React.memo(() => {
       id: "test",
     },
   ]);
-  
+
   // Next.js 13+ routing
   const router = useRouter();
   const path = usePathname();
   const [_, currentWorkspaceId, currentChannelId] = path.split("/");
 
-  const [channelManagerHovered, setChannelManagerHovered] = useState<boolean>(false);
-  const [hideChannels, setHideChannels] = useState<boolean>(false);
+  const [channelManagerHovered, setChannelManagerHovered] = useState(false);
+  const [hideChannels, setHideChannels] = useState(false);
+  const setShowAddChannelFullscreenModal = useSetRecoilState(showAddChannelFullscreenModalState);
 
   // Manages visibility of unactive channels
   const ChannelManager = React.memo(() => {
@@ -85,7 +88,7 @@ const Channel = React.memo(() => {
       <button
         className={`hbox items-center h(28) r(8) p(0/4/0/12) gap(8)
         ${id === currentChannelId ? "active" : ""}
-        .active:bg(--sidebar-active-background)+c(--sidebar-active-text)!
+        .active:bg(--sidebar-active-background)+c(--sidebar-active-text)
         hover:bg(--sidebar-background-hover)`}
         onClick={() => {
           router.push(`/${currentWorkspaceId}/${id}`);
@@ -115,7 +118,13 @@ const Channel = React.memo(() => {
             !hideChannels ||
             (hideChannels && channel.id === currentChannelId)
           ) {
-            return <SidebarChannel key={channel.id} name={channel.name} id={channel.id} />;
+            return (
+              <SidebarChannel
+                key={channel.id}
+                name={channel.name}
+                id={channel.id}
+              />
+            );
           }
         })}
       </>
@@ -125,7 +134,10 @@ const Channel = React.memo(() => {
   // Add channel button (under the channels)
   const AddChannel = React.memo(() => {
     return (
-      <button className="hbox h(28) r(8) p(0/4/0/10) gap(8)">
+      <button
+        className="hbox h(28) r(8) p(0/4/0/10) gap(8)"
+        onClick={() => setShowAddChannelFullscreenModal(true)}
+      >
         <div className="w(20) h(20) r(4) bg(--sidebar-add-channel-background)">
           <div className="text(pack) c(--sidebar-text) font(15) font-family(Larsseit)">
             +

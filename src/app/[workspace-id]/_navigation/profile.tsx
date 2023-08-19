@@ -24,7 +24,7 @@ export default function Profile() {
               height={36}
             />
           </div>
-          <div className="vbox ">
+          <div className="vbox">
             <div className="bold">{user.username}</div>
             <div className="hbox gap(4)">
               <div className="w(9) h(9) r(100%) bg(--user-status-active)"></div>
