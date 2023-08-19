@@ -52,7 +52,7 @@ export default function AddChannelFullscreenModal() {
               type="text"
               name="channel-name"
               id="channel-name"
-              className="b(1/solid/--fullscreen-modal-border) r(4) p(8/12) nowrap... focus:ring(--fullscreen-modal-focus-ring)"
+              className="b(1/solid/--fullscreen-modal-border) r(4) p(8/12) nowrap... focus:ring(--fullscreen-modal-focus-ring/1.5)"
               value={channelName}
               onChange={handleChannelName}
               autoFocus
@@ -68,7 +68,7 @@ export default function AddChannelFullscreenModal() {
             ${activated ? "activated" : ""}
             .activated:bg(--fullscreen-modal-button-background-activated)+c(--fullscreen-modal-button-text-activated)+cursor(pointer)`}
             >
-              {/* onClick: 채널을 생성하는 API를 호출, 완료되면 모달을 닫고 채널 정보를 가져오는 API를 다시 호출, 그 후 해당 채널로 이동 */}
+              {/* onClick: 채널을 생성하는 API를 호출, 완료되면 채널 정보를 가져오는 API를 다시 호출, 그 후 모달을 닫고 해당 채널로 이동 */}
               생성
             </button>
           </div>
