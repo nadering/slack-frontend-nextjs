@@ -16,9 +16,9 @@ const DirectMessage = React.memo(() => {
         onMouseOut={() => setDirectMessageManagerHovered(false)}
       >
         <button
-          className={`w(26) h(26) r(8) p(4) transition(transform=.25s) .hide-channels:rotateZ(-90deg)
+          className={`w(26) h(26) r(8) p(4) transition(transform=.25s) .hide-direct-messages:rotate(-90)
           hover:bg(--sidebar-background-hover) ${
-            hideDirectMessages ? "hide-channels" : ""
+            hideDirectMessages ? "hide-direct-messages" : ""
           }`}
           onClick={() => {
             setHideDirectMessages((prev) => !prev);

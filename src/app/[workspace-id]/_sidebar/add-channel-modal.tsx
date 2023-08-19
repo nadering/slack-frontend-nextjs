@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import Image from "next/image";
@@ -50,9 +52,10 @@ export default function AddChannelFullscreenModal() {
               type="text"
               name="channel-name"
               id="channel-name"
-              className="b(1/solid/--fullscreen-modal-border) r(4) p(8/12) nowrap..."
+              className="b(1/solid/--fullscreen-modal-border) r(4) p(8/12) nowrap... focus:ring(--fullscreen-modal-focus-ring)"
               value={channelName}
               onChange={handleChannelName}
+              autoFocus
             ></input>
             <div className="c(--fullscreen-modal-hint) font(13)">
               채널에서는 특정 주제에 대한 대화가 이루어집니다. 찾고 이해하기
