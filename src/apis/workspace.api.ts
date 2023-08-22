@@ -7,6 +7,8 @@ export async function getWorkspace(workspaceId: string) {
   const response = await request.json();
   const workspaceData = response;
 
+  console.log(workspaceData);
+
   return { workspaceData };
 }
 

@@ -96,20 +96,20 @@ export default function SetupWorkspace() {
       return;
     }
 
-    // 채널 생성에 성공했다면, 채널에 유저를 추가
-    const inviteToChannelData = {
-      workspaceId: workspaceData.workspace_id,
-      channelId: channelData.channel_id,
-      userEmail: user.attributes?.email as string,
-    };
-    const [inviteToChannelSuccess, usersData] = await inviteToChannel(
-      inviteToChannelData
-    );
+    // // 채널 생성에 성공했다면, 채널에 유저를 추가
+    // const inviteToChannelData = {
+    //   workspaceId: workspaceData.workspace_id,
+    //   channelId: channelData.channel_id,
+    //   userEmail: user.attributes?.email as string,
+    // };
+    // const [inviteToChannelSuccess, usersData] = await inviteToChannel(
+    //   inviteToChannelData
+    // );
 
-    if (!inviteToChannelSuccess) {
-      console.log("채널 초대에 실패했습니다.");
-      return;
-    }
+    // if (!inviteToChannelSuccess) {
+    //   console.log("채널 초대에 실패했습니다.");
+    //   return;
+    // }
 
     // 생성된 워크스페이스로 이동
     router.push(`/${workspaceData.workspace_id}`);

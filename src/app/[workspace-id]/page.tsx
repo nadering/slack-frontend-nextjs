@@ -6,11 +6,8 @@ import { SetupSidebar } from "./_sidebar";
 import { SetupNavigation } from "./_navigation";
 import { getWorkspace } from "@/apis";
 
-interface WorkspaceProps {
-  workspaceData: any;
-}
 
-export default function Workspace({ workspaceData }: WorkspaceProps) {
+export default function Workspace() {
   // Fetch workspace data using API, and routes to /{channel-id}
   // React-Query or getStaticProps (Next.js) >> Store at Recoil >> Push with routes >> Display with data, and fetch channel data (chatting / socket)
   const router = useRouter();
@@ -22,11 +19,14 @@ export default function Workspace({ workspaceData }: WorkspaceProps) {
       const { workspaceData } = await getWorkspace(currentWorkspaceId);
       return workspaceData;
     }
-    const workspaceData = fetchWorkspaceData();
-    
-    router.push(`/${currentWorkspaceId}/${workspaceData}`)
+    const _ = fetchWorkspaceData().then(
+      result => {
+        const channelSK = result.channels[0].SK as string;
+        const channelId = channelSK.substring(channelSK.indexOf('#') + 1);
+        router.push(`/${currentWorkspaceId}/${channelId}`);
+      });
   }, []);
-  
+
   return (
     <>
       <SetupNavigation />
@@ -36,4 +36,3 @@ export default function Workspace({ workspaceData }: WorkspaceProps) {
     </>
   );
 }
-
