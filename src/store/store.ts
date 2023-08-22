@@ -13,4 +13,4 @@ import { atom } from "recoil";
 export const showAddChannelFullscreenModalState = atom<boolean>({
   key: "showAddChannelFullscreenModalState",
   default: false
-})
+});

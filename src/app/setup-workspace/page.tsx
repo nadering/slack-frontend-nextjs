@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { SetupNavigation } from "../[workspace-id]/_navigation";
 import { SetupSidebar } from "../[workspace-id]/_sidebar";
-import { makeChannel, makeWorkspace } from "@/apis";
+import { inviteToChannel, makeChannel, makeWorkspace } from "@/apis";
 
 interface SetupWorkspaceType {
   workspaceName: string;
@@ -19,6 +19,7 @@ export default function SetupWorkspace() {
   const [channelName, setChannelName] = useState<string>("");
   const [activated, setActivated] = useState(false);
 
+  // 워크스페이스의 이름이 적합한지 확인합니다.
   function checkWorkspaceName(name: string) {
     if (name?.length !== 0) {
       return true;
@@ -26,6 +27,7 @@ export default function SetupWorkspace() {
     return false;
   }
 
+  // 채널의 이름이 적합한지 확인합니다.
   function checkChannelName(name: string) {
     if (name?.length !== 0) {
       return true;
@@ -33,6 +35,7 @@ export default function SetupWorkspace() {
     return false;
   }
 
+  // 워크스페이스의 이름 변경을 반영하고, 워크스페이스 및 채널의 생성 가능 여부를 설정합니다.
   function handleWorkspaceName(e: { target: any }) {
     setWorkspaceName(e.target.value);
     handleActivation({
@@ -41,6 +44,7 @@ export default function SetupWorkspace() {
     });
   }
 
+  // 채널의 이름 변경을 반영하고, 워크스페이스 및 채널의 생성 가능 여부를 설정합니다.
   function handleChannelName(e: { target: any }) {
     setChannelName(e.target.value);
     handleActivation({
@@ -49,6 +53,7 @@ export default function SetupWorkspace() {
     });
   }
 
+  // 워크스페이스 및 채널의 생성 가능 여부를 설정합니다.
   function handleActivation({
     workspaceName,
     channelName,
@@ -58,6 +63,56 @@ export default function SetupWorkspace() {
     } else {
       setActivated(false);
     }
+  }
+
+  // 워크스페이스를 생성하고, 생성된 워크스페이스에 채널을 생성한 후, 해당 워크스페이스로 이동합니다.
+  async function handleMakeWorkspace() {
+    // 워크스페이스를 생성
+    const makeWorkspaceData = {
+      workspaceName: workspaceName,
+      userEmail: user.attributes?.email as string,
+    };
+    const [makeWorkspaceSuccess, workspaceData] = await makeWorkspace(
+      makeWorkspaceData
+    );
+
+    if (!makeWorkspaceSuccess) {
+      console.log("워크스페이스 생성에 실패했습니다.");
+      return;
+    }
+
+    // 워크스페이스 생성에 성공했다면, 채널을 해당 워크스페이스에 생성
+    const makeChannelData = {
+      workspaceId: workspaceData.workspace_id,
+      channelName: channelName,
+      userEmail: user.attributes?.email as string,
+    };
+    const [makeChannelSuccess, channelData] = await makeChannel(
+      makeChannelData
+    );
+
+    if (!makeChannelSuccess) {
+      console.log("채널 생성에 실패했습니다.");
+      return;
+    }
+
+    // 채널 생성에 성공했다면, 채널에 유저를 추가
+    const inviteToChannelData = {
+      workspaceId: workspaceData.workspace_id,
+      channelId: channelData.channel_id,
+      userEmail: user.attributes?.email as string,
+    };
+    const [inviteToChannelSuccess, usersData] = await inviteToChannel(
+      inviteToChannelData
+    );
+
+    if (!inviteToChannelSuccess) {
+      console.log("채널 초대에 실패했습니다.");
+      return;
+    }
+
+    // 생성된 워크스페이스로 이동
+    router.push(`/${workspaceData.workspace_id}`);
   }
 
   return (
@@ -107,42 +162,7 @@ export default function SetupWorkspace() {
             className={`w(80) bg(--setup-workspace-button-background-deactivated) r(4) p(6/24) c(--setup-workspace-button-text-deactivated) bold cursor(default) ${
               activated ? "activated" : "disabled"
             } .activated:bg(--setup-workspace-button-background-activated)+c(--setup-workspace-button-text-activated)+cursor(pointer)`}
-            onClick={async () => {
-              // 워크스페이스를 생성하고, 생성된 워크스페이스에 채널을 생성한 후, 해당 워크스페이스로 이동
-
-              // 워크스페이스를 생성
-              const makeWorkspaceData = {
-                workspaceName: workspaceName,
-                userEmail: user.attributes?.email as string,
-              };
-              const [makeWorkspaceSuccess, workspaceData] = await makeWorkspace(
-                makeWorkspaceData
-              );
-
-              // 채널을 생성
-              if (makeWorkspaceSuccess) {
-                // 워크스페이스 생성에 성공했다면, 채널을 해당 워크스페이스에 생성
-                const makeChannelData = {
-                  workspaceId: workspaceData.workspace_id,
-                  channelName: channelName,
-                  userEmail: user.attributes?.email as string,
-                };
-                const [makeChannelSuccess, channelData] = await makeChannel(
-                  makeChannelData
-                );
-
-                if (makeChannelSuccess) {
-                  // 채널 생성에 성공했다면, 해당 워크스페이스로 이동
-                  router.push(`/${workspaceData.workspace_id}`);
-                } else {
-                  // 채널 생성에 실패했다면, 임시로 콘솔에 실패했음을 출력
-                  console.log("채널 생성에 실패했습니다.");
-                }
-              } else {
-                // 워크스페이스 생성에 실패했다면, 임시로 콘솔에 실패했음을 출력
-                console.log("워크스페이스 생성에 실패했습니다.");
-              }
-            }}
+            onClick={() => handleMakeWorkspace()}
           >
             생성
           </button>
