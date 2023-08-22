@@ -1,6 +1,15 @@
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { API_URL } from ".";
 
+
+export async function getWorkspace(workspaceId: string) {
+  const request = await fetch(`${API_URL}/workspace/${workspaceId}`);
+  const response = await request.json();
+  const workspaceData = response;
+
+  return { workspaceData };
+}
+
 export async function getWorkspaces() {
   const { user } = useAuthenticator((context) => [context.user]);
 
@@ -25,8 +34,6 @@ export async function makeWorkspace({ workspaceName, userEmail }: makeWorkspaceT
     }),
   });
   const response = await request.json();
-
-  console.log(response);
 
   if (response.message === "workspace created successfully") {
     return [true, response];
