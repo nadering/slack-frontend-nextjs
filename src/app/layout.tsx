@@ -50,7 +50,7 @@ export default function RootLayout({
               <div className="app" data-theme="light">
                 <Authenticator
                   initialState="signIn"
-                  signUpAttributes={["email"]}
+                  signUpAttributes={["nickname", "email"]}
                   socialProviders={["google"]}
                   variation="modal"
                   formFields={{
@@ -58,14 +58,17 @@ export default function RootLayout({
                       username: {
                         order: 1,
                       },
-                      email: {
+                      nickname: {
                         order: 2,
                       },
-                      password: {
+                      email: {
                         order: 3,
                       },
-                      confirm_password: {
+                      password: {
                         order: 4,
+                      },
+                      confirm_password: {
+                        order: 5,
                       },
                     },
                   }}

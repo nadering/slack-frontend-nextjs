@@ -2,6 +2,7 @@ export default {
   // Input Fields
   "Enter your Username": "아이디 입력",
   "Enter your Password": "비밀번호 입력",
+  "Enter your Nickname": "닉네임 입력",
   "Please confirm your Password": "비밀번호 입력",
   "Code *": "인증번호 *",
   "New Password": "변경할 비밀번호",
