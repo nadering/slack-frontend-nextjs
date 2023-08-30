@@ -1,4 +1,3 @@
-import { useAuthenticator } from "@aws-amplify/ui-react";
 import { API_URL } from ".";
 
 
@@ -7,15 +6,15 @@ export async function getWorkspace(workspaceId: string) {
   const response = await request.json();
   const workspaceData = response;
 
-  console.log(workspaceData);
-
   return { workspaceData };
 }
 
-export async function getWorkspaces() {
-  const { user } = useAuthenticator((context) => [context.user]);
+interface getWorkspacesType {
+  userEmail: string;
+}
 
-  const request = await fetch(`${API_URL}/workspace/${user.attributes?.email}`);
+export async function getWorkspaces({ userEmail }: getWorkspacesType) {
+  const request = await fetch(`${API_URL}/workspaces/${userEmail}`);
   const response = await request.json();
   const workspaces = response;
 

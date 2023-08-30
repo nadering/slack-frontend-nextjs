@@ -1,41 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { showAddChannelFullscreenModalState } from "@/store";
+import {
+  showAddChannelFullscreenModalState,
+} from "@/store";
 
-interface SidebarChannelProps {
+export interface SidebarChannelProps {
   name: string;
   id: string;
 }
 
-const Channel = React.memo(() => {
-  // temporary state and hooks
-  const [channelList, setChannelList] = useState<SidebarChannelProps[]>([
-    // temporary array
-    // ToDo: get channel list with useEffect or React-Query
-    {
-      name: "회의",
-      id: "conversation",
-    },
-    {
-      name: "테스트",
-      id: "test",
-    },
-  ]);
-
-  // Next.js 13+ routing
+const Channel = React.memo(({ channelList }: { channelList: SidebarChannelProps[] }) => {
+  // Next.js 13+ 라우팅
   const router = useRouter();
   const path = usePathname();
   const [_, currentWorkspaceId, currentChannelId] = path.split("/");
 
+  // 채널 관리
   const [channelManagerHovered, setChannelManagerHovered] = useState(false);
   const [hideChannels, setHideChannels] = useState(false);
-  const setShowAddChannelFullscreenModal = useSetRecoilState(showAddChannelFullscreenModalState);
 
-  // Manages visibility of unactive channels
+  // 채널 추가 모달
+  const setShowAddChannelFullscreenModal = useSetRecoilState(
+    showAddChannelFullscreenModalState
+  );
+
+  // 선택되지 않은 채널의 숨김 여부를 결정합니다.
   const ChannelManager = React.memo(() => {
     return (
       <div
@@ -82,7 +75,7 @@ const Channel = React.memo(() => {
     );
   });
 
-  // Displays a channel at sidebar
+  // 사이드바에 표시되는 채널 하나를 나타내는 컴포넌트
   const SidebarChannel = React.memo(({ name, id }: SidebarChannelProps) => {
     return (
       <button
@@ -109,7 +102,7 @@ const Channel = React.memo(() => {
     );
   });
 
-  // Displays channels at sidebar
+  // 사이드바에 채널 전체를 나타내는 컴포넌트
   const ChannelList = React.memo(() => {
     return (
       <>
@@ -131,7 +124,7 @@ const Channel = React.memo(() => {
     );
   });
 
-  // Add channel button (under the channels)
+  // 채널 추가 컴포넌트
   const AddChannel = React.memo(() => {
     return (
       <button

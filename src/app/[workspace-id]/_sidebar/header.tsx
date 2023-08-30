@@ -1,14 +1,13 @@
 import React from "react";
 import Image from "next/image";
 
-const Header = React.memo(() => {
+const Header = React.memo(({ workspaceName }: { workspaceName: string }) => {
   return (
     <div className="vbox gap(4)">
       <div className="hbox px(12)">
         <button className="hbox relative w(~100%-46px) r(8) p(4/4/4/8) gap(4) hover:bg(--sidebar-background-hover)">
           <span className="w(~90%) c(--sidebar-workspace) font-family(Larsseit) font(18) heavy translateY(1px) nowrap...">
-            {/* Workspace name */}
-            {"테스트"}
+            {workspaceName}
           </span>
           <span className="filter-white">
             <Image

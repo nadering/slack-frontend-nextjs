@@ -14,3 +14,13 @@ export const showAddChannelFullscreenModalState = atom<boolean>({
   key: "showAddChannelFullscreenModalState",
   default: false
 });
+
+export const workspaceListState = atom<any[]>({
+  key: "workspaceListState",
+  default: []
+});
+
+export const workspaceInformationState = atom<any>({
+  key: "workspaceInformationState",
+  default: null
+});

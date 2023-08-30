@@ -3,17 +3,32 @@
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import Image from "next/image";
-import { showAddChannelFullscreenModalState } from "@/store";
+import { useRouter, usePathname } from "next/navigation";
+import { useAuthenticator } from "@aws-amplify/ui-react";
+import { makeChannel, getWorkspace } from "@/apis";
+import {
+  showAddChannelFullscreenModalState,
+  workspaceInformationState,
+} from "@/store";
 
+// 채널 추가에 사용되는 전체 화면을 덮는 모달
 export default function AddChannelFullscreenModal() {
+  const { user } = useAuthenticator((context) => [context.user]);
+
+  const router = useRouter();
+  const path = usePathname();
+  const [_, currentWorkspaceId, currentChannelId] = path.split("/");
+
   const setShowAddChannelFullscreenModal = useSetRecoilState(
     showAddChannelFullscreenModalState
   );
 
-  const [channelName, setChannelName] = useState<string>();
+  const setWorkspaceInformation = useSetRecoilState(workspaceInformationState);
+
+  const [channelName, setChannelName] = useState<string>("");
   const [activated, setActivated] = useState(false);
 
-  // Handles changes of channel name, checks channel name condition, and sets button activation.
+  // 작성된 채널 이름의 변경을 반영하고, 이름의 조건 만족 여부를 확인하고, 채널 생성 버튼을 활성화시킵니다.
   function handleChannelName(e: { target: any }) {
     function checkChannelName(name: string) {
       if (name?.length !== 0) {
@@ -28,6 +43,32 @@ export default function AddChannelFullscreenModal() {
       setActivated(true);
     } else {
       setActivated(false);
+    }
+  }
+
+  async function fetchWorkspaceData() {
+    const { workspaceData } = await getWorkspace(currentWorkspaceId);
+    return workspaceData;
+  }
+
+  // 채널을 생성하고 해당 채널로 이동합니다.
+  async function handleMakeChannel() {
+    const makeChannelData = {
+      workspaceId: currentWorkspaceId,
+      channelName: channelName as string,
+      userEmail: user.attributes?.email as string,
+    };
+    const [makeChannelSuccess, channelData] = await makeChannel(
+      makeChannelData
+    );
+
+    // 채널 생성에 성공하면 워크스페이스 정보를 새로 받아와 저장하고, 모달을 닫으며 해당 채널로 이동합니다.
+    if (makeChannelSuccess) {
+      const _ = fetchWorkspaceData().then((result) => {
+        setWorkspaceInformation(result);
+        setShowAddChannelFullscreenModal(false);
+        router.push(`/${currentWorkspaceId}/${channelData.channel_id}`);
+      });
     }
   }
 
@@ -67,8 +108,8 @@ export default function AddChannelFullscreenModal() {
               className={`bg(--fullscreen-modal-button-background-deactivated) r(4) p(6/24) c(--fullscreen-modal-button-text-deactivated) bold cursor(default)
             ${activated ? "activated" : ""}
             .activated:bg(--fullscreen-modal-button-background-activated)+c(--fullscreen-modal-button-text-activated)+cursor(pointer)`}
+              onClick={() => handleMakeChannel()}
             >
-              {/* onClick: 채널을 생성하는 API를 호출, 완료되면 채널 정보를 가져오는 API를 다시 호출, 그 후 모달을 닫고 해당 채널로 이동 */}
               생성
             </button>
           </div>
