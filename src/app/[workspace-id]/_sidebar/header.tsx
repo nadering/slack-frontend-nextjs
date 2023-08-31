@@ -26,8 +26,8 @@ const Header = React.memo(({ workspaceName }: { workspaceName: string }) => {
   }
 
   return (
-    <div className="relative vbox gap(4)" ref={headerModalRef}>
-      <div className="hbox px(12)">
+    <div className="relative vbox gap(4)" >
+      <div className="hbox px(12)" ref={headerModalRef}>
         <button className="hbox relative w(~100%-46px) r(8) p(4/4/4/8) gap(4) hover:bg(--sidebar-background-hover)">
           <span className="w(~90%) c(--sidebar-workspace) font-family(Larsseit) font(18) heavy translateY(1px) nowrap...">
             {workspaceName}

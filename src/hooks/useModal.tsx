@@ -1,6 +1,9 @@
 import { RefObject, useEffect, useState } from "react";
 
-export default function useModal(wrapperRef: RefObject<HTMLElement>, event: "click" | "contextmenu" = "click") {
+export default function useModal(
+  wrapperRef: RefObject<HTMLElement>,
+  event: "click" | "contextmenu" = "click",
+) {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -10,13 +13,13 @@ export default function useModal(wrapperRef: RefObject<HTMLElement>, event: "cli
       }
     }
 
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
     wrapperRef.current?.addEventListener(event, () => setModalOpen(true));
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
       wrapperRef.current?.removeEventListener(event, () => setModalOpen(true));
-    }
+    };
   }, []);
 
   return modalOpen;

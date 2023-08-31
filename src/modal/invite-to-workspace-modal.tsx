@@ -91,14 +91,17 @@ export default function InviteToWorkspaceModal() {
               type="text"
               name="channel-name"
               id="channel-name"
-              className="b(1/solid/--fullscreen-modal-border) r(4) p(8/12) nowrap... focus:ring(--fullscreen-modal-focus-ring/1.5)"
+              className={`b(1/solid/--fullscreen-modal-border) r(4) p(8/12) nowrap... focus:ring(--fullscreen-modal-focus-ring/1.5) ${
+                wrongEmailInput ? "b(1/solid/--fullscreen-modal-alert)!" : ""
+              }`}
               value={targetUserEmail}
               onChange={handleTargetUserEmail}
               autoFocus
             ></input>
             {wrongEmailInput ? (
               <div className="c(--fullscreen-modal-alert) font(13)">
-                잘못된 이메일을 입력했거나, 이미 존재하는 사용자를 다시 초대했습니다.
+                잘못된 이메일을 입력했거나, 이미 존재하는 사용자를 다시
+                초대했습니다.
               </div>
             ) : (
               <></>
