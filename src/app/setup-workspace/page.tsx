@@ -96,7 +96,7 @@ export default function SetupWorkspace() {
       return;
     }
 
-    // // 채널 생성에 성공했다면, 채널에 유저를 추가
+    // // 채널 생성에 성공했다면, 채널에 유저를 추가 ===> 자동으로 추가되는 걸 확인하여 주석화
     // const inviteToChannelData = {
     //   workspaceId: workspaceData.workspace_id,
     //   channelId: channelData.channel_id,
