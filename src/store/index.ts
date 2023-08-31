@@ -2,6 +2,18 @@
 
 // export { currentChannelNameState, currentWorkspaceNameState };
 
-import { showAddChannelFullscreenModalState, workspaceListState, workspaceInformationState } from "./store";
+import {
+  showAddChannelModalState,
+  showInviteToChannelModalState,
+  showInviteToWorkspaceModalState,
+  workspaceListState,
+  workspaceInformationState,
+} from "./store";
 
-export { showAddChannelFullscreenModalState, workspaceListState, workspaceInformationState };
+export {
+  showAddChannelModalState,
+  showInviteToChannelModalState,
+  showInviteToWorkspaceModalState,
+  workspaceListState,
+  workspaceInformationState,
+};

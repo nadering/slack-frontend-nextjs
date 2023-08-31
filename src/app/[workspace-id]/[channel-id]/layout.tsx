@@ -4,12 +4,15 @@ import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { useRouter, usePathname } from "next/navigation";
 import {
-  showAddChannelFullscreenModalState,
+  showAddChannelModalState,
+  showInviteToWorkspaceModalState,
+  showInviteToChannelModalState,
   workspaceInformationState,
 } from "@/store";
-import { Sidebar, AddChannelFullscreenModal } from "../_sidebar";
+import { Sidebar } from "../_sidebar";
 import { Navigation } from "../_navigation";
 import { SidebarChannelProps } from "../_sidebar/channel";
+import { AddChannelModal, InviteToWorkspaceModal, InviteToChannelModal } from "@/modal";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -17,8 +20,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [_, currentWorkspaceId, currentChannelId] = path.split("/");
 
   const workspaceInformation = useRecoilValue(workspaceInformationState);
-  const showAddChannelFullscreenModal = useRecoilValue(
-    showAddChannelFullscreenModalState
+
+  // 전체 화면 크기의 모달을 담당합니다.
+  const showAddChannelModal = useRecoilValue(showAddChannelModalState);
+
+  const showInviteToWorkspaceModal = useRecoilValue(
+    showInviteToWorkspaceModalState
+  );
+
+  const showInviteToChannelModal = useRecoilValue(
+    showInviteToChannelModalState
   );
 
   // 워크스페이스 페이지로 돌아가 워크스페이스 정보를 새롭게 가져옵니다.
@@ -50,10 +61,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {workspaceInformation === null ? (
-        <>{GetWorkspaceInformation()}</>
+        <></>
       ) : (
         <>
-          {showAddChannelFullscreenModal && <AddChannelFullscreenModal />}
+          {showAddChannelModal && <AddChannelModal />}
+          {showInviteToWorkspaceModal && <InviteToWorkspaceModal />}
+          {showInviteToChannelModal && <InviteToChannelModal />}
           <Navigation workspaceName={workspaceInformation.workspace_name} />
           <div className="hbox(stretch) h(100vh-44px)">
             <Sidebar

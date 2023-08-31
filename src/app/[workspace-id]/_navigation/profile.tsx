@@ -14,7 +14,7 @@ export default function Profile() {
 
   function ProfileModal() {
     return (
-      <div className="vbox absolute top(100%) right(0) w(200~) bg(--modal-background) r(4) mt(8) p(20/0/12/0) gap(16) c(--text) font(15) font-family(Larsseit) medium box-shadow(0/0/5/--modal-shadow)">
+      <div className="vbox absolute top(100%) right(0) w(200~) bg(--modal-background) r(4) mt(8) p(20/0/12/0) gap(16) z(100) c(--text) font(15) font-family(Larsseit) medium box-shadow(0/0/5/--modal-shadow)">
         <div className="hbox px(20) gap(12) items-start">
           <div className="w(36) h(36) r(4) clip">
             <Image

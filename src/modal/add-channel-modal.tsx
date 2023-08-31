@@ -7,20 +7,20 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { makeChannel, getWorkspace } from "@/apis";
 import {
-  showAddChannelFullscreenModalState,
+  showAddChannelModalState,
   workspaceInformationState,
 } from "@/store";
 
 // 채널 추가에 사용되는 전체 화면을 덮는 모달
-export default function AddChannelFullscreenModal() {
+export default function AddChannelModal() {
   const { user } = useAuthenticator((context) => [context.user]);
 
   const router = useRouter();
   const path = usePathname();
   const [_, currentWorkspaceId, currentChannelId] = path.split("/");
 
-  const setShowAddChannelFullscreenModal = useSetRecoilState(
-    showAddChannelFullscreenModalState
+  const setShowAddChannelModal = useSetRecoilState(
+    showAddChannelModalState
   );
 
   const setWorkspaceInformation = useSetRecoilState(workspaceInformationState);
@@ -66,7 +66,7 @@ export default function AddChannelFullscreenModal() {
     if (makeChannelSuccess) {
       const _ = fetchWorkspaceData().then((result) => {
         setWorkspaceInformation(result);
-        setShowAddChannelFullscreenModal(false);
+        setShowAddChannelModal(false);
         router.push(`/${currentWorkspaceId}/${channelData.channel_id}`);
       });
     }
@@ -116,7 +116,7 @@ export default function AddChannelFullscreenModal() {
         </div>
         <button
           className="absolute top(20) right(20) w(36) h(36) r(4) p(8) clip hover:bg(--fullscreen-modal-background-hover)"
-          onClick={() => setShowAddChannelFullscreenModal(false)}
+          onClick={() => setShowAddChannelModal(false)}
         >
           <div className="pack">
             <Image

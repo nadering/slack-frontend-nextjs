@@ -10,8 +10,18 @@ import { atom } from "recoil";
 //   default: ""
 // });
 
-export const showAddChannelFullscreenModalState = atom<boolean>({
-  key: "showAddChannelFullscreenModalState",
+export const showAddChannelModalState = atom<boolean>({
+  key: "showAddChannelModalState",
+  default: false
+});
+
+export const showInviteToChannelModalState = atom<boolean>({
+  key: "showInviteToChannelModalState",
+  default: false
+});
+
+export const showInviteToWorkspaceModalState = atom<boolean>({
+  key: "showInviteToWorkspaceModalState",
   default: false
 });
 
