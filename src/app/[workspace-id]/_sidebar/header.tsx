@@ -8,7 +8,9 @@ const Header = React.memo(({ workspaceName }: { workspaceName: string }) => {
   const headerModalRef = useRef(null);
   const headerModal = useModal(headerModalRef);
 
-  const setShowInviteToWorkspaceModal = useSetRecoilState(showInviteToWorkspaceModalState);
+  const setShowInviteToWorkspaceModal = useSetRecoilState(
+    showInviteToWorkspaceModalState
+  );
 
   function HeaderModal() {
     return (
@@ -26,9 +28,12 @@ const Header = React.memo(({ workspaceName }: { workspaceName: string }) => {
   }
 
   return (
-    <div className="relative vbox gap(4)" >
-      <div className="hbox px(12)" ref={headerModalRef}>
-        <button className="hbox relative w(~100%-46px) r(8) p(4/4/4/8) gap(4) hover:bg(--sidebar-background-hover)">
+    <div className="relative vbox gap(4)">
+      <div className="hbox px(12)">
+        <button
+          className="hbox relative w(~100%-46px) r(8) p(4/4/4/8) gap(4) hover:bg(--sidebar-background-hover)"
+          ref={headerModalRef}
+        >
           <span className="w(~90%) c(--sidebar-workspace) font-family(Larsseit) font(18) heavy translateY(1px) nowrap...">
             {workspaceName}
           </span>
